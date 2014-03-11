@@ -1,0 +1,53 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use Cwd;
+use Getopt::Std;
+
+# get options
+our %opt = ();
+getopts('dgis', \%opt);
+
+# only 1 arg can be accepted
+show_usage() unless @ARGV == 2;
+our $pattern = $ARGV[0];
+our $replace = $ARGV[1];
+
+# build regexp
+our $regexp = '$newname =~ s/' . $pattern . '/' . $replace . '/';
+$regexp .= 'g' if (exists $opt{'g'});
+$regexp .= 'i' if (exists $opt{'i'});
+$regexp .= ';';
+
+# main process
+our $pwd = Cwd::getcwd();
+opendir(my $dh, $pwd) || die "cannot open $pwd";
+while(my $f = readdir($dh)){
+  next if $f eq '.' or $f eq '..';
+  my $newname = $f;
+  eval($regexp);
+  
+  if ($f ne $newname){
+    unless(exists $opt{'d'}){
+      rename($f, $newname) || die "cannot rename $f";
+    }
+    unless(exists $opt{'s'}){
+      print("$f -> $newname\n");
+    }
+  }
+  elsif(!exists $opt{'s'}){
+      print("$f did not match given pattern\n");
+  }
+}
+closedir($dh);
+
+sub show_usage{
+  print "Usage: rename.pl [-dgis] PATTERN REPLACE\n";
+  print "   -d: dry run\n";
+  print "   -g: find globally\n";
+  print "   -i: ignore case\n";
+  print "   -s: rename silently\n";
+  die;
+}
+
