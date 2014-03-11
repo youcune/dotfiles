@@ -43,7 +43,7 @@ while(my $f = readdir($dh)){
 closedir($dh);
 
 sub show_usage{
-  print "Usage: rename.pl [-dgis] PATTERN REPLACE\n";
+  print "Usage: rename [-dgis] PATTERN REPLACE\n";
   print "   -d: dry run\n";
   print "   -g: find globally\n";
   print "   -i: ignore case\n";
