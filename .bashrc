@@ -54,5 +54,5 @@ export SVN_EDITOR=vim
 # --------------------------------------------------------------------
 # CLI Tools
 # --------------------------------------------------------------------
-PATH=$(cd `dirname $ARGV[0]`; pwd)/bin:$PATH
+export PATH=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/bin:$PATH
 
