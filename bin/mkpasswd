@@ -1,15 +1,36 @@
-#!/bin/sh
+#!/usr/bin/env ruby
 
-len=$1
+require 'optparse'
 
-[ -z $len ] && len="16"
-char='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789-_.';
-i=1
-while [ $i -le $len ]; do
-    dm=$(( (RANDOM % ${#char}) ))
-    str="${str}${char:${dm}:1}"
-    i=$(( i+1 ))
-done
+def show_usage
+  puts '[USAGE] mkpasswd [-l LENGTH] [-s]'
+  puts '  -l Password\'s length (Default 16)'
+  puts '  -s Includes symbols  (Default No)'
+  exit
+end
 
-echo "$str"
+opt = OptionParser.new
+opts = {}
+opt.on('-l VAL') {|v| opts[:length] = v.to_i }
+opt.on('-s') {|v| opts[:symbol] = v }
+opt.on('-h') {|v| show_usage }
+opt.on('--help') {|v| show_usage }
+opt.parse(ARGV)
 
+opts[:length] ||= 16
+alphas  = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'.split('')
+nums    = '23456789'.split('')
+symbols = '!"#$%&\'()*+,-./:;=?@[]^_`{|}~'.split('')
+chars   = []
+
+(opts[:length]).times do |i|
+  if i <= opts[:length] / 6
+    chars << nums.sample
+  elsif opts[:symbol] && i <= opts[:length] / 3
+    chars << symbols.sample
+  else
+    chars << alphas.sample
+  end
+end
+
+puts chars.shuffle.join('')
