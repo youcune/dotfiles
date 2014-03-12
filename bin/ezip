@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $# -eq 2 ]; then
+  passwd=`mkpasswd -s`
+  zip -P $passwd -r $1 $2
+  echo "Password: $passwd"
+else
+  echo '[USAGE] ezip <ZIP_FILE_NAME> <FILE_OR_DIR>'
+fi
