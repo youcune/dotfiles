@@ -1,53 +1,38 @@
-#!/usr/bin/perl
+#!/usr/bin/env ruby
+# --------------------------------------------------------------------
+# rename v0.1
+# @youcune
+# --------------------------------------------------------------------
+Version = 'v0.1'
 
-use strict;
-use warnings;
-use Cwd;
-use Getopt::Std;
+require 'optparse'
+params = {}
+opt = OptionParser.new
+opt.on('-d', '--dry-run',     'dry run')         { |v| params[:dry_run] = v }
+opt.on('-g', '--global',      'find globally')   { |v| params[:global] = v }
+opt.on('-i', '--ignore-case', 'ignore case')     { |v| params[:ignore_case] = v }
+opt.on('-s', '--silent',      'rename silently') { |v| params[:silent] = v }
+argv = opt.parse(ARGV)
 
-# get options
-our %opt = ();
-getopts('dgis', \%opt);
+find = Regexp.new(argv[0], params[:ignore_case] ? Regexp::IGNORECASE : nil)
+replace = argv[1]
 
-# only 1 arg can be accepted
-show_usage() unless @ARGV == 2;
-our $pattern = $ARGV[0];
-our $replace = $ARGV[1];
+Dir::entries('.').reject { |e| e =~ /^\./ }.sort.each do |e|
+  if params[:global]
+    newname = e.gsub(find, replace)
+  else
+    newname = e.sub(find, replace)
+  end
 
-# build regexp
-our $regexp = '$newname =~ s/' . $pattern . '/' . $replace . '/';
-$regexp .= 'g' if (exists $opt{'g'});
-$regexp .= 'i' if (exists $opt{'i'});
-$regexp .= ';';
+  if params[:dry_run] || !params[:silent]
+    if !e.match(find)
+      puts "#{e} does not match."
+    else
+      puts "#{e} -> #{newname}"
+    end
+  end
 
-# main process
-our $pwd = Cwd::getcwd();
-opendir(my $dh, $pwd) || die "cannot open $pwd";
-while(my $f = readdir($dh)){
-  next if $f eq '.' or $f eq '..';
-  my $newname = $f;
-  eval($regexp);
-  
-  if ($f ne $newname){
-    unless(exists $opt{'d'}){
-      rename($f, $newname) || die "cannot rename $f";
-    }
-    unless(exists $opt{'s'}){
-      print("$f -> $newname\n");
-    }
-  }
-  elsif(!exists $opt{'s'}){
-      print("$f did not match given pattern\n");
-  }
-}
-closedir($dh);
-
-sub show_usage{
-  print "Usage: rename [-dgis] PATTERN REPLACE\n";
-  print "   -d: dry run\n";
-  print "   -g: find globally\n";
-  print "   -i: ignore case\n";
-  print "   -s: rename silently\n";
-  die;
-}
-
+  unless params[:dry_run]
+    system("mv '#{e}' '#{newname}'")
+  end
+end

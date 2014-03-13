@@ -1,32 +1,27 @@
 #!/usr/bin/env ruby
+# --------------------------------------------------------------------
+# mkpasswd v0.1
+# @youcune
+# --------------------------------------------------------------------
+Version = 'v0.1'
 
 require 'optparse'
-
-def show_usage
-  puts '[USAGE] mkpasswd [-l LENGTH] [-s]'
-  puts '  -l Password\'s length (Default 16)'
-  puts '  -s Includes symbols  (Default No)'
-  exit
-end
-
+params = {}
 opt = OptionParser.new
-opts = {}
-opt.on('-l VAL') {|v| opts[:length] = v.to_i }
-opt.on('-s') {|v| opts[:symbol] = v }
-opt.on('-h') {|v| show_usage }
-opt.on('--help') {|v| show_usage }
+opt.on('-l LENGTH', '--length',    'password length')  { |v| params[:length] = v }
+opt.on('-s', '--includes-symbols', 'includes symbols') { |v| params[:includes_symbol] = v }
 opt.parse(ARGV)
 
-opts[:length] ||= 16
+length  = params[:length] ? params[:length].to_i : 16
 alphas  = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'.split('')
 nums    = '23456789'.split('')
 symbols = '!"#$%&\'()*+,-./:;=?@[]^_`{|}~'.split('')
 chars   = []
 
-(opts[:length]).times do |i|
-  if i <= opts[:length] / 6
+length.times do |i|
+  if i <= length / 6
     chars << nums.sample
-  elsif opts[:symbol] && i <= opts[:length] / 3
+  elsif params[:includes_symbol] && i <= length / 3
     chars << symbols.sample
   else
     chars << alphas.sample
