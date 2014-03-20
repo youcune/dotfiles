@@ -18,8 +18,9 @@ alias jis2euc='iconv -f ISO-2022-JP -t EUC-JP'
 alias cr='tr "\r\n|\r|\n" "\r"'
 alias lf='tr "\r\n|\r|\n" "\n"'
 alias crlf='tr "\r\n|\r|\n" "\r\n"'
-alias today='date '+%y%m%d''
-alias yesterday='date -r $(expr $(date +%s) - 86400) "+%y%m%d"'
+alias today='date '+%Y%m%d''
+alias yesterday='date -r $(expr $(date +%s) - 86400) "+%Y%m%d"'
+alias tomorrow='date -r $(expr $(date +%s) + 86400) "+%Y%m%d"'
 alias reload="exec $SHELL -l"
 
 # --------------------------------------------------------------------
