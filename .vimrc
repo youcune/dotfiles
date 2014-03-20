@@ -1,37 +1,45 @@
+" --------------------------------------------------------------------
+" 基本設定
+" --------------------------------------------------------------------
 " viとの後方互換モードをOFFにする
 set nocompatible
 
-" turn off IME on start
+" 起動時にIMEをオフ
 set iminsert=0
 
-" turn off IME on exit from insert mode
-"inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
-
-" バックスペースキーで削除できるものを指定
-set backspace=indent,eol,start
-
-" width of tab
+" --------------------------------------------------------------------
+" 編集系
+" --------------------------------------------------------------------
+" タブやインデント幅は2SP
 set tabstop=2
-
-" width on hitting tab key
 set softtabstop=2
-
-" width on autoindent
 set shiftwidth=2
-
-" tab to space
 set expandtab
 
 " autoindent
 set autoindent
 set smartindent
 
-" show line numbers
+" --------------------------------------------------------------------
+" 表示系
+" --------------------------------------------------------------------
+" colorscheme
+colorscheme desert
+
+" 行番号表示
 set number
 set ruler
+
+" タイトル表示
 set title
 
-" move carret as seen
+" deleteキーで前の行に戻れるように
+set backspace=indent,eol,start
+
+" --------------------------------------------------------------------
+" カーソル移動系
+" --------------------------------------------------------------------
+" 行が変わっても見た目通りにカーソルを動かす
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -44,14 +52,21 @@ nnoremap <Up> gk
 " 左右のカーソル移動で行間移動可能にする
 set whichwrap=b,s,<,>,[,]
 
-" highlighting / esc esc to clear
+" --------------------------------------------------------------------
+" 検索系
+" --------------------------------------------------------------------
+" ヒットした部分を画面中央にもってくる
+" http://qiita.com/m-yamashita/items/28ce6f90b1d3fdc2eb24
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
+
+" escの二度押しで検索ハイライトをクリア
 set hlsearch
 set ignorecase
 nnoremap <Esc><Esc> :noh<CR>
 
-" highlighting pair brankets
+" 対になるカッコをハイライト
 set wrapscan
-
-" colorscheme
-colorscheme desert
 
