@@ -16,20 +16,40 @@ $ ln -s $DOTFILES_INSTALLATION_PATH/.vimrc ~/.vimrc
 
 .bashrc を読み込むと以下のツールにパスが通ります。
 
-### mkcd
-
-mkdir + cd + pwd します。以下は今日の日付のディレクトリを作る例です。
-
-```
-$ mkcd `today`
-```
-
 ### ezip
 
 ランダムなパスワードで暗号化zipファイルを作成します。
 
 ```
 $ ezip <ZIP_FILE_NAME> <FILE_OR_DIR>
+```
+
+### days_since
+
+n日後の日付を出力します。
+
+```
+$ days_since DAYS FORMAT
+    DAYS:   days
+    FORMAT: format
+    For more information about format, see below:
+    http://pubs.opengroup.org/onlinepubs/009695399/functions/strftime.html
+$ date
+2014年 3月24日 月曜日 21時00分50秒 JST
+$ days_since
+20140324
+$ days_since 1
+20140325
+$ days_since -1 '%d, %B'
+23, March
+```
+
+### mkcd
+
+mkdir + cd + pwd します。以下は今日の日付のディレクトリを作る例です。
+
+```
+$ mkcd `today`
 ```
 
 ### mkpasswd
@@ -54,3 +74,14 @@ $ rename [options] <PATTERN> <REPLACE>
     -s, --silent                     rename silently
 ```
 
+### today
+
+`days_since 0` へのエイリアスです。
+
+### tomorrow
+
+`days_since 1` へのエイリアスです。
+
+### yesterday
+
+`days_since -1` へのエイリアスです。

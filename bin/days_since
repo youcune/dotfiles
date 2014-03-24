@@ -7,6 +7,8 @@ Version = 'v0.1'
 
 def show_usage
   puts 'Usage: days_since DAYS FORMAT'
+  puts '    For more information about format, see below:'
+  puts '    http://pubs.opengroup.org/onlinepubs/009695399/functions/strftime.html'
   exit
 end
 
@@ -17,4 +19,4 @@ require 'date'
 days, format = ARGV
 format ||= '%Y%m%d'
 
-puts (Date.today + days.to_i).strftime(format)
+puts (DateTime.now + days.to_i).strftime(format)
