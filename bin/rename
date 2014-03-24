@@ -32,7 +32,8 @@ Dir::entries('.').reject { |e| e =~ /^\./ }.sort.each do |e|
     end
   end
 
-  unless params[:dry_run]
+  if e.match(find) && !params[:dry_run]
     system("mv '#{e}' '#{newname}'")
   end
 end
+
