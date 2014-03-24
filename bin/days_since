@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+# --------------------------------------------------------------------
+# days_since v0.1
+# @youcune
+# --------------------------------------------------------------------
+Version = 'v0.1'
+
+def show_usage
+  puts 'Usage: days_since DAYS FORMAT'
+  exit
+end
+
+show_usage if ARGV.size == 0 || ARGV[0] =~ /h/
+
+require 'date'
+
+days, format = ARGV
+format ||= '%Y%m%d'
+
+puts (Date.today + days.to_i).strftime(format)
