@@ -16,15 +16,11 @@ $ ln -s $DOTFILES_INSTALLATION_PATH/.vimrc ~/.vimrc
 
 .bashrc を読み込むと以下のツールにパスが通ります。
 
-### ezip
+### 日付
 
-ランダムなパスワードで暗号化zipファイルを作成します。
+### ファイル/ディレクトリ
 
-```
-$ ezip <ZIP_FILE_NAME> <FILE_OR_DIR>
-```
-
-### days_since
+#### days_since
 
 n日後の日付を出力します。
 
@@ -44,44 +40,80 @@ $ days_since -1 '%d, %B'
 23, March
 ```
 
-### mkcd
+#### today
+
+`days_since 0` へのエイリアスです。
+
+#### tomorrow
+
+`days_since 1` へのエイリアスです。
+
+#### yesterday
+
+`days_since -1` へのエイリアスです。
+
+#### ezip
+
+ランダムなパスワードで暗号化zipファイルを作成します。
+
+```
+$ ezip -h
+Usage: ezip [options] <ZIP_FILE> <FILE_OR_DIR>
+For more information about options, see `man zip`.
+Options, -r -x "*/.DS_Store", are set by default.
+```
+
+#### mkcd
 
 mkdir + cd + pwd します。以下は今日の日付のディレクトリを作る例です。
 
 ```
 $ mkcd `today`
+/path/to/20140325
 ```
 
-### mkpasswd
-
-パスワードを生成します。
-
-```
-$ mkpasswd [options]
-    -l, --length LENGTH              password length
-    -s, --includes-symbols           includes symbols
-```
-
-### rename
+#### rename
 
 カレントディレクトリ内のファイル名を正規表現でリネームします。
 
 ```
-$ rename [options] <PATTERN> <REPLACE>
+$ rename -h
+Usage: rename [options]
     -d, --dry-run                    dry run
     -g, --global                     find globally
     -i, --ignore-case                ignore case
     -s, --silent                     rename silently
+$ ls -l
+total 32
+-rw-r--r--   1 youcune  staff   269  3 13 08:10 Gemfile
+-rw-r--r--   1 youcune  staff  2953  3 13 08:10 Gemfile.lock
+-rw-r--r--   1 youcune  staff    54  3 13 08:10 README.md
+drwxr-xr-x   3 youcune  staff   102  3 13 08:11 bundle
+-rw-r--r--   1 youcune  staff  3501  3 13 08:10 config.rb
+drwxr-xr-x  12 youcune  staff   408  3 23 13:14 source
+$ rename -d '\.\w+$' ''
+Gemfile does not match.
+Gemfile.lock -> Gemfile
+README.md -> README
+bundle does not match.
+config.rb -> config
+source does not match.
 ```
 
-### today
+### ユーティリティ
 
-`days_since 0` へのエイリアスです。
+#### mkpasswd
 
-### tomorrow
+パスワードを生成します。
 
-`days_since 1` へのエイリアスです。
+```
+$ mkpasswd -h
+mkpasswd [options]
+    -l, --length LENGTH              password length
+    -s, --includes-symbols           includes symbols
+$ mkpasswd
+2ATDRa5m5cXrtNrk
+$ mkpasswd -l 8 -s
+*HJQ9V8S
+```
 
-### yesterday
-
-`days_since -1` へのエイリアスです。

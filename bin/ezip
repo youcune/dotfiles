@@ -1,9 +1,12 @@
 #!/bin/bash
 
-if [ $# -eq 2 ]; then
-  passwd=`mkpasswd -s`
-  zip -P $passwd -r $1 $2 -x "*/.DS_Store"
+if [ $# -ge 2 ]; then
+  passwd=`mkpasswd`
+  zip -P "$passwd" -r $@ -x "*/.DS_Store"
   echo "Password: $passwd"
 else
-  echo '[USAGE] ezip <ZIP_FILE_NAME> <FILE_OR_DIR>'
+  echo 'Usage: ezip [options] <ZIP_FILE> <FILE_OR_DIR>'
+  echo 'For more information about options, see `man zip`.'
+  echo 'Options, -r -x "*/.DS_Store", are set by default.'
 fi
+
