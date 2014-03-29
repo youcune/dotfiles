@@ -4,12 +4,37 @@ is an awesome dotfiles for me!
 
 ## Installation
 
+### まず最初にやること
+
 ```
 $ export DOTFILES_INSTALLATION_PATH=~/develop/dotfiles
 $ mkdir -p $DOTFILES_INSTALLATION_PATH
 $ git clone https://github.com/youcune/dotfiles.git $DOTFILES_INSTALLATION_PATH
+```
+
+### .bashrc
+
+各種エイリアスやCLI Toolsを導入します。
+
+```
 $ echo ". $DOTFILES_INSTALLATION_PATH/.bashrc" >> ~/.bash_profile
+```
+
+### .vimrc
+
+```
 $ ln -s $DOTFILES_INSTALLATION_PATH/.vimrc ~/.vimrc
+```
+
+### .gitconfig
+
+Gitを使う場合は下記を設定します。
+
+```
+$ ln -s $DOTFILES_INSTALLATION_PATH/.gitconfig ~/.gitconfig
+$ ln -s $DOTFILES_INSTALLATION_PATH/.gitignore.global ~/.gitignore.global
+$ cp $DOTFILES_INSTALLATION_PATH/.gitconfig.local.example ~/.gitconfig.local
+$ vim ~/.gitconfig.local
 ```
 
 ## CLI Tools
@@ -17,8 +42,6 @@ $ ln -s $DOTFILES_INSTALLATION_PATH/.vimrc ~/.vimrc
 .bashrc を読み込むと以下のツールにパスが通ります。
 
 ### 日付
-
-### ファイル/ディレクトリ
 
 #### days_since
 
@@ -51,6 +74,8 @@ $ days_since -1 '%d, %B'
 #### yesterday
 
 `days_since -1` へのエイリアスです。
+
+### ファイル/ディレクトリ
 
 #### ezip
 
