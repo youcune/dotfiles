@@ -44,6 +44,8 @@ alias gpl='git pull'
 alias gps='git push'
 alias gr='git reset'
 alias gs='git status'
+alias gsp='git stash pop'
+alias gss='git stash save'
 alias gt='git tag'
 
 # --------------------------------------------------------------------
