@@ -17,6 +17,10 @@ argv = opt.parse(ARGV)
 find = Regexp.new(argv[0], params[:ignore_case] ? Regexp::IGNORECASE : nil)
 replace = argv[1]
 
+def escape(str)
+  str.gsub(/[\\\$\`\"]/, "\\\\\\&")
+end
+
 Dir::entries('.').reject { |e| e =~ /^\./ }.sort.each do |e|
   if params[:global]
     newname = e.gsub(find, replace)
@@ -33,7 +37,7 @@ Dir::entries('.').reject { |e| e =~ /^\./ }.sort.each do |e|
   end
 
   if e.match(find) && !params[:dry_run]
-    system("mv '#{e}' '#{newname}'")
+    system("mv \"#{escape(e)}\" \"#{escape(newname)}\"")
   end
 end
 
