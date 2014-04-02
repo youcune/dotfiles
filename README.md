@@ -142,3 +142,19 @@ $ mkpasswd -l 8 -s
 *HJQ9V8S
 ```
 
+### ネットワーク
+
+#### expect-http-status
+
+指定されたURIにHEADリクエストを投げ、HTTP Statusが期待通りかを調べます。
+
+期待通りの場合、STDOUTに結果を出力し、exit 0を返します。期待通りでない場合やエラーが発生した場合はSTDERRに結果を出力し、exit 0以外を返します。
+
+```
+$ expect-http-status -h
+Usage: expect-http-status <URI> [<STATUS>]
+    HEAD <URI> and check if HTTP status equals to <STATUS>.
+    <URI>    : URL to check
+    <STATUS> : expected HTTP status, default 200
+```
+

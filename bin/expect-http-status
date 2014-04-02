@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+# --------------------------------------------------------------------
+# expect-http-status v0.1
+# @youcune
+# --------------------------------------------------------------------
+Version = 'v0.1'
+
+def show_usage
+  puts 'Usage: expect-http-status <URI> [<STATUS>]'
+  puts '    HEAD <URI> and check if HTTP status equals to <STATUS>.'
+  puts '    <URI>    : URL to check'
+  puts '    <STATUS> : expected HTTP status, default 200'
+  exit
+end
+
+def show_error(message)
+  STDERR.puts message
+  exit -1
+end
+
+show_usage if ARGV.size == 0 || ARGV[0] =~ /\A--?h/
+
+require 'net/http'
+require 'uri'
+
+OPEN_TIMEOUT = 4
+READ_TIMEOUT = 4
+
+uri = URI.parse(ARGV[0]) rescue show_error('Failed parsing URI!')
+expected = (ARGV[1] || 200).to_s
+
+begin
+  Net::HTTP.start(uri.host, uri.port) { |http|
+    http.open_timeout = OPEN_TIMEOUT
+    http.read_timeout = READ_TIMEOUT
+    response = http.head(uri.path)
+    if response.code == expected
+      exitcode = 0
+      printto  = STDOUT
+    else
+      exitcode = 1
+      printto  = STDERR
+    end
+    printto.puts "[#{response.code}] #{uri.to_s}"
+    exit exitcode
+  }
+rescue => e
+  show_error("[ERR] #{uri.to_s} #{e.message}")
+end
+
