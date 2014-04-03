@@ -22,6 +22,11 @@ alias today='days_since 0'
 alias yesterday='days_since -1'
 alias tomorrow='days_since 1'
 alias reload="exec $SHELL -l"
+function mkcd(){
+  mkdir -p $1
+  cd $1
+  pwd
+}
 
 # --------------------------------------------------------------------
 # Ruby
