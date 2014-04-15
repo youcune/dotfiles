@@ -21,6 +21,7 @@ end
 show_usage if ARGV.size == 0 || ARGV[0] =~ /\A--?h/
 
 require 'net/http'
+require 'openssl'
 require 'uri'
 
 OPEN_TIMEOUT = 4
@@ -30,9 +31,14 @@ uri = URI.parse(ARGV[0]) rescue show_error('Failed parsing URI!')
 expected = (ARGV[1] || 200).to_s
 
 begin
-  Net::HTTP.start(uri.host, uri.port) { |http|
-    http.open_timeout = OPEN_TIMEOUT
-    http.read_timeout = READ_TIMEOUT
+  http = Net::HTTP.new(uri.host, uri.port)
+  if uri.scheme == 'https'
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+  end
+  http.open_timeout = OPEN_TIMEOUT
+  http.read_timeout = READ_TIMEOUT
+  http.start { |http|
     response = http.head(uri.path)
     if response.code == expected
       exitcode = 0
