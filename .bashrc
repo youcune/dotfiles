@@ -33,6 +33,8 @@ function mkcd(){
 # --------------------------------------------------------------------
 alias bx='bundle exec'
 alias bxs='bundle exec spring'
+alias bxrc='bundle exec rails c'
+alias bxrs='bundle exec rails s'
 
 # --------------------------------------------------------------------
 # Git
