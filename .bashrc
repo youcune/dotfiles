@@ -63,6 +63,7 @@ alias gt='git tag'
 alias sa='svn add'
 alias sci='svn commit'
 alias sd='svn diff'
+alias sr='svn revert'
 alias ss='svn status'
 alias spe='svn propset svn:executable ON'
 export SVN_EDITOR=vim
