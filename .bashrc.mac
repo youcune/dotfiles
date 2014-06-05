@@ -1,0 +1,4 @@
+locate(){
+  mdfind $1 | grep $1
+}
+
