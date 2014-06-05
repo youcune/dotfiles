@@ -32,9 +32,11 @@ function mkcd(){
 # Ruby
 # --------------------------------------------------------------------
 alias bx='bundle exec'
+alias bxrc='bundle exec rails console'
+alias bxrs='bundle exec rails server'
 alias bxs='bundle exec spring'
-alias bxrc='bundle exec rails c'
-alias bxrs='bundle exec rails s'
+alias bxsrc='bundle exec spring rails console'
+alias bxsrs='bundle exec spring rails server'
 
 # --------------------------------------------------------------------
 # Git
