@@ -5,6 +5,7 @@
 [core]
   excludesfile = ~/.gitignore.global
   autocrlf = input
+	whitespace = cr-at-eol
 [push]
 	default = simple
 
