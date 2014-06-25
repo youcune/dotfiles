@@ -19,12 +19,13 @@ set expandtab
 " autoindent
 set autoindent
 set smartindent
+command! NOI set noautoindent | set nosmartindent
 
 " --------------------------------------------------------------------
 " 変換系
 " --------------------------------------------------------------------
-command EUC e ++enc=euc-jp
-command UTF8 e ++enc=utf-8
+command! EUC e ++enc=euc-jp
+command! UTF8 e ++enc=utf-8
 
 " --------------------------------------------------------------------
 " 表示系
