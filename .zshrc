@@ -194,12 +194,12 @@ alias yesterday='days_since -1'
 alias tomorrow='days_since 1'
 alias reload="exec $SHELL -l"
 function mkcd(){
-    mkdir -p $1
-      cd $1
-        pwd
+  mkdir -p $1
+  cd $1
+  pwd
 }
 function fromto(){
-    grep -A 1000000 "$1" "$3" | grep -B 1000000 "$2"
+  grep -A 1000000 "$1" "$3" | grep -B 1000000 "$2"
 }
 
 # --------------------------------------------------------------------
