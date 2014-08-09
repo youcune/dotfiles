@@ -7,13 +7,9 @@
 # 環境変数
 export LANG=ja_JP.UTF-8
 
-
 # 色を使用出来るようにする
 autoload -Uz colors
 colors
-
-# emacs 風キーバインドにする
-bindkey -e
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
@@ -126,17 +122,6 @@ setopt extended_glob
 bindkey '^R' history-incremental-pattern-search-backward
 
 ########################################
-# エイリアス
-
-alias la='ls -al'
-alias ll='ls -l'
-
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-
-alias mkdir='mkdir -p'
-
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 
@@ -177,6 +162,8 @@ esac
 # --------------------------------------------------------------------
 # Utilities
 # --------------------------------------------------------------------
+alias la='ls -al'
+alias ll='ls -l'
 alias utf82euc='iconv -f UTF-8 -t EUC-JP'
 alias ut82sjis='iconv -f UTF-8 -t SHIFT-JIS'
 alias utf82jis='iconv -f UTF-8 -t ISO-2022-JP'
