@@ -75,6 +75,9 @@ RPROMPT="%1(v|%F{green}%1v%f|)"
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
+# 濁点・半濁点の扱い
+setopt combining_chars
+
 # beep を無効にする
 setopt no_beep
 
