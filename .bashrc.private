@@ -1,2 +1,0 @@
-alias gpsbabel='gpsbabel -t -i m241 -f /dev/tty.HOLUX_M-241-SPPSlave -o gpx -F `today`.gpx'
-
