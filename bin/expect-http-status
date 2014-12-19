@@ -4,7 +4,7 @@
 # @youcune
 # 
 # v0.2 2014.07.10 Ruby 1.8 系でのエラーハンドリングを考慮
-# v0.3 2014.12.19 HTTPS を考慮
+# v0.3 2014.12.19 HTTPS を考慮し証明書を検証する
 # --------------------------------------------------------------------
 Version = 'v0.3'
 
@@ -39,6 +39,7 @@ begin
   http = Net::HTTP.new(uri.host, uri.port)
   if uri.scheme == 'https'
     http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_PEER
   end
   http.open_timeout = OPEN_TIMEOUT
   http.read_timeout = READ_TIMEOUT
