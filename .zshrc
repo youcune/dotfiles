@@ -238,6 +238,15 @@ alias spe='svn propset svn:executable ON'
 export SVN_EDITOR=vim
 
 # --------------------------------------------------------------------
+# Ansible
+# --------------------------------------------------------------------
+alias ap='ansible-playbook --vault-password-file ~/.ansiblepasswd'
+alias av='ansible-vault --vault-password-file ~/.ansiblepasswd'
+alias avc='ansible-vault --vault-password-file ~/.ansiblepasswd encrypt'
+alias avd='ansible-vault --vault-password-file ~/.ansiblepasswd decrypt'
+alias ave='ansible-vault --vault-password-file ~/.ansiblepasswd edit'
+
+# --------------------------------------------------------------------
 # CLI Tools
 # --------------------------------------------------------------------
 export PATH=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/bin:$PATH
