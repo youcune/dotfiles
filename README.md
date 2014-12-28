@@ -12,12 +12,12 @@ $ mkdir -p $DOTFILES_INSTALLATION_PATH
 $ git clone https://github.com/youcune/dotfiles.git $DOTFILES_INSTALLATION_PATH
 ```
 
-### .bashrc
+### .zshrc
 
 各種エイリアスやCLI Toolsを導入します。
 
 ```
-$ echo ". $DOTFILES_INSTALLATION_PATH/.bashrc" >> ~/.bash_profile
+$ echo ". $DOTFILES_INSTALLATION_PATH/.zshrc" >> ~/.zshrc
 ```
 
 ### .vimrc
@@ -26,9 +26,17 @@ $ echo ". $DOTFILES_INSTALLATION_PATH/.bashrc" >> ~/.bash_profile
 $ ln -s $DOTFILES_INSTALLATION_PATH/.vimrc ~/.vimrc
 ```
 
+### .gemrc
+
+gem を使う場合は下記を設定します。
+
+```
+$ ln -s $DOTFILES_INSTALLATION_PATH/.gemrc ~/.gemrc
+```
+
 ### .gitconfig
 
-Gitを使う場合は下記を設定します。
+Git を使う場合は下記を設定します。
 
 ```
 $ ln -s $DOTFILES_INSTALLATION_PATH/.gitconfig ~/.gitconfig
