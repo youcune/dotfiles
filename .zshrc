@@ -176,9 +176,7 @@ alias sjis2jis='iconv -f SHIFT-JIS -t ISO-2022-JP'
 alias jis2utf8='iconv -f ISO-2022-JP -t UTF-8'
 alias jis2sjis='iconv -f ISO-2022-JP -t SHIFT-JIS'
 alias jis2euc='iconv -f ISO-2022-JP -t EUC-JP'
-alias cr='tr "\r\n|\r|\n" "\r"'
-alias lf='tr "\r\n|\r|\n" "\n"'
-alias crlf='tr "\r\n|\r|\n" "\r\n"'
+alias lf='LC_CTYPE=C sed -e "s///g"'
 alias today='days_since 0'
 alias yesterday='days_since -1'
 alias tomorrow='days_since 1'
@@ -190,6 +188,9 @@ function mkcd(){
 }
 function fromto(){
   grep -A 1000000 "$1" "$3" | grep -B 1000000 "$2"
+}
+function rfind(){
+  find . -name $1
 }
 
 # --------------------------------------------------------------------
