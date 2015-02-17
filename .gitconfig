@@ -8,4 +8,9 @@
   whitespace = cr-at-eol
 [push]
   default = simple
-
+[http]
+	sslVerify = false
+[merge]
+	ff = false
+[branch "master"]
+	rebase = true
