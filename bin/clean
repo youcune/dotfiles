@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+require 'date'
+
+SYSFILES = ['.', '..', 'work', 'archive', 'yesterday', '.DS_Store']
+
+home = File.expand_path("~")
+downloads_dir = "#{home}/Downloads"
+work_dir = "#{home}/work"
+
+# Mac環境の前処理
+if Dir.exists?("#{downloads_dir}")
+  files = Dir.entries(downloads_dir).reject{ |f| SYSFILES.include?(f) }
+
+  files.each do |f|
+    puts `mv -v '#{downloads_dir}/#{f}' '#{work_dir}/'`
+  end
+end
+
+files = Dir.entries(work_dir).reject{ |f| SYSFILES.include?(f) }
+archive_dir = "#{work_dir}/archive"
+yesterday = Date.today - 1
+yesterday_dir = "#{archive_dir}/#{yesterday.strftime('%Y/%m/%d')}"
+
+if files.any?
+  puts `mkdir -pv #{yesterday_dir}`
+
+  files.each do |f|
+    puts `mv -v '#{work_dir}/#{f}' '#{yesterday_dir}/'`
+  end
+  
+  puts `ln -fnsv '#{yesterday_dir}/' '#{work_dir}/yesterday'`
+
+  # Mac環境の後処理
+  if Dir.exists?("#{downloads_dir}")
+    puts `ln -fnsv '#{work_dir}' '#{downloads_dir}/work'`
+    puts `ln -fnsv '#{archive_dir}' '#{downloads_dir}/archive'`
+    puts `ln -fnsv '#{yesterday_dir}' '#{downloads_dir}/yesterday'`
+  end
+end
+
