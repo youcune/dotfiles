@@ -192,6 +192,10 @@ function fromto(){
 function rfind(){
   find . -name $1
 }
+function d(){
+  cd ~/develop/$1
+  pwd
+}
 
 # --------------------------------------------------------------------
 # Ruby
