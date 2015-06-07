@@ -200,7 +200,7 @@ function d(){
 # --------------------------------------------------------------------
 # Ruby
 # --------------------------------------------------------------------
-alias bi='bundle install --path vendor/bundle --jobs=4'
+alias bi='bundle install'
 alias bx='bundle exec'
 alias bxrc='bundle exec rails console'
 alias bxrs='bundle exec rails server'
