@@ -6,6 +6,7 @@
   excludesfile = ~/.gitignore.global
   autocrlf = input
   whitespace = cr-at-eol
+  quotepath = false
 [push]
   default = simple
 [http]
