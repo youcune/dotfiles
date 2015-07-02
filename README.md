@@ -45,6 +45,12 @@ $ cp $DOTFILES_INSTALLATION_PATH/.gitconfig.local.example ~/.gitconfig.local
 $ vim ~/.gitconfig.local
 ```
 
+### .pryrc
+
+```
+$ ln -s $DOTFILES_INSTALLATION_PATH/pryrc ~/.pryrc
+```
+
 ## CLI Tools
 
 .bashrc を読み込むと以下のツールにパスが通ります。
