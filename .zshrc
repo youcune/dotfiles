@@ -207,6 +207,9 @@ alias bxrs='bundle exec rails server'
 alias bxs='bundle exec spring'
 alias bxsrc='bundle exec spring rails console'
 alias bxsrs='bundle exec spring rails server'
+alias ss='spring stop'
+alias src='spring rails console'
+alias srs='spring rails server'
 
 # --------------------------------------------------------------------
 # Git
