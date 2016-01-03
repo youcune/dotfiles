@@ -162,8 +162,8 @@ esac
 # --------------------------------------------------------------------
 # Utilities
 # --------------------------------------------------------------------
-alias la='ls -al'
-alias ll='ls -l'
+alias la='ls -ahl'
+alias ll='ls -hl'
 alias utf82euc='iconv -f UTF-8 -t EUC-JP'
 alias ut82sjis='iconv -f UTF-8 -t SHIFT-JIS'
 alias utf82jis='iconv -f UTF-8 -t ISO-2022-JP'
