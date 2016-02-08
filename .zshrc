@@ -203,16 +203,12 @@ function d(){
 # --------------------------------------------------------------------
 # Ruby
 # --------------------------------------------------------------------
-alias bi='bundle install'
 alias bx='bundle exec'
-alias bxrc='bundle exec rails console'
-alias bxrs='bundle exec rails server'
-alias bxs='bundle exec spring'
-alias bxsrc='bundle exec spring rails console'
-alias bxsrs='bundle exec spring rails server'
-alias ss='spring stop'
-alias src='spring rails console'
-alias srs='spring rails server'
+alias rails='bundle exec spring rails'
+alias r='bundle exec spring rails'
+alias rc='bundle exec spring rails console'
+alias rs='bundle exec spring rails server'
+alias ss='bundle exec spring stop'
 
 # --------------------------------------------------------------------
 # Git
@@ -220,6 +216,7 @@ alias srs='spring rails server'
 alias ga='git add'
 alias gb='git branch'
 alias gci='git commit'
+alias gcl='git clone'
 alias gco='git checkout'
 alias gd='git diff'
 alias gdc='git diff --cached'
@@ -261,4 +258,3 @@ alias ave='ansible-vault --vault-password-file ~/.ansiblepasswd edit'
 # CLI Tools
 # --------------------------------------------------------------------
 export PATH=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/bin:$PATH
-
