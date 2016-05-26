@@ -211,6 +211,11 @@ alias rc='bundle exec spring rails console'
 alias rs='bundle exec spring rails server'
 alias ss='bundle exec spring stop'
 
+alias middleman='bundle exec middleman'
+alias mm='bundle exec middleman'
+alias mmb='bundle exec middleman build'
+alias mms='bundle exec middleman server'
+
 # --------------------------------------------------------------------
 # Git
 # --------------------------------------------------------------------
