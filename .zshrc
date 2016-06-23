@@ -204,7 +204,9 @@ function d(){
 # Ruby
 # --------------------------------------------------------------------
 alias bi='bundle install'
+alias bu='bundle update'
 alias bx='bundle exec'
+alias bxs='bundle exec spring'
 alias rails='bundle exec spring rails'
 alias r='bundle exec spring rails'
 alias rc='bundle exec spring rails console'
