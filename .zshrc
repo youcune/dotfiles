@@ -256,11 +256,7 @@ export SVN_EDITOR=vim
 # --------------------------------------------------------------------
 # Ansible
 # --------------------------------------------------------------------
-alias ap='ansible-playbook --vault-password-file ~/.ansiblepasswd'
-alias av='ansible-vault --vault-password-file ~/.ansiblepasswd'
-alias avc='ansible-vault --vault-password-file ~/.ansiblepasswd encrypt'
-alias avd='ansible-vault --vault-password-file ~/.ansiblepasswd decrypt'
-alias ave='ansible-vault --vault-password-file ~/.ansiblepasswd edit'
+alias ap='ansible-playbook'
 
 # --------------------------------------------------------------------
 # CLI Tools
