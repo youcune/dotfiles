@@ -27,8 +27,8 @@ require 'net/https'
 require 'openssl'
 require 'uri'
 
-OPEN_TIMEOUT = 5
-READ_TIMEOUT = 5
+OPEN_TIMEOUT = 10
+READ_TIMEOUT = 10
 
 uri = URI.parse(ARGV[0]) rescue show_error('Failed parsing URI!')
 expected = (ARGV[1] || 200).to_s
