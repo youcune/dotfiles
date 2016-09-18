@@ -29,9 +29,7 @@ Dir::entries('.').reject { |e| e =~ /^\./ }.sort.each do |e|
   end
 
   if params[:dry_run] || !params[:silent]
-    if !e.match(find)
-      puts "#{e} does not match."
-    else
+    if e.match(find)
       puts "#{e} -> #{newname}"
     end
   end
