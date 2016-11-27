@@ -10,6 +10,8 @@ is an awesome dotfiles for me!
 $ export DOTFILES_INSTALLATION_PATH=~/develop/dotfiles
 $ mkdir -p $DOTFILES_INSTALLATION_PATH
 $ git clone https://github.com/youcune/dotfiles.git $DOTFILES_INSTALLATION_PATH
+OR
+$ git clone git@github.com:youcune/dotfiles.git $DOTFILES_INSTALLATION_PATH
 ```
 
 ### .zshrc
