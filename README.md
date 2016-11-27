@@ -14,6 +14,12 @@ OR
 $ git clone git@github.com:youcune/dotfiles.git $DOTFILES_INSTALLATION_PATH
 ```
 
+### config.fish
+
+```
+$ echo ". $DOTFILES_INSTALLATION_PATH/config.fish" >> ~/.config/fish/config.fish
+```
+
 ### .zshrc
 
 各種エイリアスやCLI Toolsを導入します。
