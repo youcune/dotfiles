@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+def show_usage
+  puts 'Usage: expect-text <TEXT>'
+  puts '    Expect STDIN to include <TEXT>'
+  exit
+end
+
+def show_error(message)
+  STDERR.puts message
+  exit -1
+end
+
+show_usage if ARGV.size == 0 || ARGV[0] =~ /\A--?h/
+
+text = ARGV[0]
+
+while line = $stdin.gets
+  if line.include?(text)
+    puts 'OK'
+    exit 0
+  end
+end
+
+puts 'NG'
+`say 'ERROR! ERROR! ERROR! ERROR! ERROR!'`
+exit 1

@@ -9,10 +9,11 @@
 Version = 'v0.3'
 
 def show_usage
-  puts 'Usage: expect-http-status <URI> [<STATUS>]'
+  puts 'Usage: expect-http-status <URI> <STATUS> [<HOST>]'
   puts '    HEAD <URI> and check if HTTP status equals to <STATUS>.'
   puts '    <URI>    : URL to check'
-  puts '    <STATUS> : expected HTTP status, default 200'
+  puts '    <STATUS> : expected HTTP status'
+  puts '    <HOST> : Host HTTP Header'
   exit
 end
 
@@ -31,7 +32,8 @@ OPEN_TIMEOUT = 10
 READ_TIMEOUT = 10
 
 uri = URI.parse(ARGV[0]) rescue show_error('Failed parsing URI!')
-expected = (ARGV[1] || 200).to_s
+expected = ARGV[1]
+host = ARGV[2]
 
 exitcode = 0
 
@@ -44,6 +46,7 @@ begin
   http.open_timeout = OPEN_TIMEOUT
   http.read_timeout = READ_TIMEOUT
   http.start { |http|
+    p http.class
     response = http.head(uri.path)
     if response.code == expected
       printto  = STDOUT
