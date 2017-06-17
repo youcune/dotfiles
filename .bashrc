@@ -35,6 +35,7 @@ function d(){
   cd ~/develop/$1
   pwd
 }
+alias ql='qlmanage -p "$@" >& /dev/null'
 
 # --------------------------------------------------------------------
 # Ruby
