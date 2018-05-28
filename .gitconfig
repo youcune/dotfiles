@@ -10,5 +10,5 @@
   editor = vim
 [push]
   default = simple
-[http]
-	sslVerify = false
+[branch "master"]
+  rebase = true
