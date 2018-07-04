@@ -162,3 +162,15 @@ Usage: expect-http-status <URI> [<STATUS>]
     <URI>    : URL to check
     <STATUS> : expected HTTP status, default 200
 ```
+
+### mdig
+
+digを実行しますが、そのままの状態と、 @server を外した状態の合計2回実行します。ネームサーバーの移行前に同じレコードが登録されていることを確認するのに便利です。
+
+```
+$ mdig @ns-636.awsdns-15.net +short youcube.jp a
++ dig +short youcube.jp a
+45.32.61.53
++ dig @ns-636.awsdns-15.net +short youcube.jp a
+45.32.61.53
+```
