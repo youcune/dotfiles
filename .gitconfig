@@ -12,3 +12,5 @@
   default = simple
 [branch "master"]
   rebase = true
+[log]
+  date = iso-local
