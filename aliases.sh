@@ -62,6 +62,9 @@ alias mms='bundle exec middleman server'
 # --------------------------------------------------------------------
 alias dcu='docker-compose up'
 alias dcud='docker-compose up -d'
+alias dp='docker ps'
+alias dk='docker kill'
+alias dka='docker kill $(docker ps -q)'
 
 # --------------------------------------------------------------------
 # Git
