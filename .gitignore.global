@@ -1,12 +1,8 @@
 # OS X
 .DS_Store
 
-# Ruby
-/vendor/bundle
-
 # Rubymine
 .idea
 
-# Powder
-.powder
-
+# VS Code
+.vscode
