@@ -17,10 +17,8 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 
 # プロンプト
-# 1行表示
-# PROMPT="%~ %# "
-# 2行表示
-PROMPT="%(?.%{${fg[green]}%}(^o^).%{${fg[red]}%}(xox%)) %D %*${reset_color} %~
+# `%(x.true-text.false-text)` x が true なら true-text を表示
+PROMPT="%(?.%{${fg[green]}%}(^o^).%{${fg[red]}%}(xox%)) %D{%Y/%m/%d %H:%M:%S}${reset_color} %~
 %# "
 
 # 単語の区切り文字を指定する
