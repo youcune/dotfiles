@@ -1,0 +1,49 @@
+{
+  "title": "ブラウザで有効なルール",
+  "conditions": [
+    {
+      "type": "frontmost_application_if",
+      "bundle_identifiers": [
+        "^com\\.apple\\.Safari",
+        "^com\\.google\\.Chrome",
+        "^com\\.vivaldi\\.Vivaldi"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "description": "Cmd+[ Cmd+] to Tab",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "open_bracket",
+            "modifiers": {
+              "mandatory": ["command"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "tab"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "close_bracket",
+            "modifiers": {
+              "mandatory": ["command"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": ["shift"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
