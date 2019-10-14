@@ -1,6 +1,6 @@
 # @youcune's dotfiles
 
-is an awesome dotfiles for me!
+is an awesome dotfiles for @youcune
 
 ## Installation
 
@@ -14,13 +14,6 @@ OR
 $ git clone git@github.com:youcune/dotfiles.git $DOTFILES_INSTALLATION_PATH
 ```
 
-### bashを使う場合
-
-```
-$ echo ". $DOTFILES_INSTALLATION_PATH/.bashrc" >> ~/.bashrc
-$ echo ". $DOTFILES_INSTALLATION_PATH/aliases.sh" >> ~/.bashrc
-```
-
 ### zshを使う場合
 
 ```
@@ -28,24 +21,31 @@ $ echo ". $DOTFILES_INSTALLATION_PATH/.zshrc" >> ~/.zshrc
 $ echo ". $DOTFILES_INSTALLATION_PATH/aliases.sh" >> ~/.zshrc
 ```
 
+### bashを使う場合
+
+```
+$ echo ". $DOTFILES_INSTALLATION_PATH/.bashrc" >> ~/.bashrc
+$ echo ". $DOTFILES_INSTALLATION_PATH/aliases.sh" >> ~/.bashrc
+```
+
 ### vimを使う場合
 
 ```
-$ ln -s $DOTFILES_INSTALLATION_PATH/.vimrc ~/.vimrc
+$ ln $DOTFILES_INSTALLATION_PATH/.vimrc ~/.vimrc
 ```
 
 ### Rubyを使う場合
 
 ```
-$ ln -s $DOTFILES_INSTALLATION_PATH/.gemrc ~/.gemrc
-$ ln -s $DOTFILES_INSTALLATION_PATH/pryrc ~/.pryrc
+$ ln $DOTFILES_INSTALLATION_PATH/.gemrc ~/.gemrc
+$ ln $DOTFILES_INSTALLATION_PATH/.pryrc ~/.pryrc
 ```
 
 ### gitを使う場合
 
 ```
-$ ln -s $DOTFILES_INSTALLATION_PATH/.gitconfig ~/.gitconfig
-$ ln -s $DOTFILES_INSTALLATION_PATH/.gitignore.global ~/.gitignore.global
+$ ln $DOTFILES_INSTALLATION_PATH/.gitconfig ~/.gitconfig
+$ ln $DOTFILES_INSTALLATION_PATH/.gitignore.global ~/.gitignore.global
 $ cp $DOTFILES_INSTALLATION_PATH/.gitconfig.local.example ~/.gitconfig.local
 $ vim ~/.gitconfig.local
 ```
@@ -147,20 +147,6 @@ $ mkpasswd
 2ATDRa5m5cXrtNrk
 $ mkpasswd -l 8 -s
 *HJQ9V8S
-```
-
-### expect-http-status
-
-指定されたURIにHEADリクエストを投げ、HTTP Statusが期待通りかを調べます。
-
-期待通りの場合、STDOUTに結果を出力し、exit 0を返します。期待通りでない場合やエラーが発生した場合はSTDERRに結果を出力し、exit 0以外を返します。
-
-```
-$ expect-http-status -h
-Usage: expect-http-status <URI> [<STATUS>]
-    HEAD <URI> and check if HTTP status equals to <STATUS>.
-    <URI>    : URL to check
-    <STATUS> : expected HTTP status, default 200
 ```
 
 ### mdig
