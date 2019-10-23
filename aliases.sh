@@ -37,6 +37,7 @@ function d(){
 
 alias zip="zip -x '*.DS_Store'"
 alias ql='qlmanage -p "$@" >& /dev/null'
+alias hg='history 0 | grep'
 
 # --------------------------------------------------------------------
 # Ruby
