@@ -3,6 +3,8 @@
 
 # Rubymine
 .idea
+.generators
+.rakeTasks
 
 # VS Code
 .vscode
