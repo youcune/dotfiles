@@ -1,25 +1,31 @@
 #!/usr/bin/env ruby
 # --------------------------------------------------------------------
-# mkpasswd v0.1
+# mkpasswd v0.2.0
+# v0.1.0 2014/03/13 Release
+# v0.2.0 2021/06/18 Add hiragana feature
 # @youcune
 # --------------------------------------------------------------------
-Version = 'v0.1'
+Version = 'v0.2.0'
 
 require 'optparse'
 params = {}
 opt = OptionParser.new
-opt.on('-l LENGTH', '--length',    'password length')  { |v| params[:length] = v }
-opt.on('-s', '--includes-symbols', 'includes symbols') { |v| params[:includes_symbol] = v }
+opt.on('-l LENGTH', '--length', 'Password length') { |v| params[:length] = v }
+opt.on('-s', '--includes-symbols', 'Includes symbols') { |v| params[:includes_symbol] = v }
+opt.on('-k', '--kana', 'Use hiraganas (-s option will be ignored)') { |v| params[:kana] = v }
 opt.parse(ARGV)
 
 length  = params[:length] ? params[:length].to_i : 16
 alphas  = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'.split('')
 nums    = '23456789'.split('')
 symbols = '!"#$%&\'()*+,-./:;=?@[]^_`{|}~'.split('')
+kanas   = ('あ'..'ん').to_a
 chars   = []
 
 length.times do |i|
-  if i <= length / 6
+  if params[:kana]
+    chars << kanas.sample
+  elsif i <= length / 6
     chars << nums.sample
   elsif params[:includes_symbol] && i <= length / 3
     chars << symbols.sample

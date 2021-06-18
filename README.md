@@ -136,17 +136,20 @@ source does not match.
 
 ### mkpasswd
 
-パスワードを生成します。
+パスワードを生成します。 `-k / --kana` モードは秘密の質問の回答を作るのに便利です。
 
 ```
 $ mkpasswd -h
-mkpasswd [options]
-    -l, --length LENGTH              password length
-    -s, --includes-symbols           includes symbols
+Usage: mkpasswd [options]
+    -l, --length LENGTH              Password length
+    -s, --includes-symbols           Includes symbols
+    -k, --kana                       Use hiraganas (-s option will be ignored)
 $ mkpasswd
 2ATDRa5m5cXrtNrk
-$ mkpasswd -l 8 -s
+$ mkpasswd -sl8
 *HJQ9V8S
+$ mkpasswd -kl10
+でぬざぜぶそぅゆとべ
 ```
 
 ### mdig
