@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+require 'net/http'
+require 'uri'
+require 'json'
+require_relative 'credentials'
+
+class Book
+  attr_accessor :title, :image
+end
+
+def text(text)
+  {
+    type: 'text',
+    text: {
+      content: text
+    }
+  }
+end
+
+def retrieve_book(isbn)
+  body = JSON.parse(Net::HTTP.get(URI.parse("https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}")))
+  volume_info = body['items'].first['volumeInfo']
+
+  Book.new.tap do |book|
+    book.title = volume_info['title']
+    book.image = volume_info['imageLinks']['thumbnail']
+  end
+end
+
+def create_book(book)
+  url = URI.parse('https://api.notion.com/v1/pages')
+  request = Net::HTTP::Post.new(url.path)
+  request['Authorization'] = "Bearer #{NOTION_BOOK_API_KEY}"
+  request['Notion-Version'] = '2021-08-16'
+  request['Content-Type'] = 'application/json'
+  request.body = {
+    parent: { database_id: 'a5f7f7a91b274c79aff34287c84dab2e' },
+    cover: {
+      external: {
+        url: book.image
+      }
+    },
+    properties: {
+      Name: { title: [ text(book.title) ] },
+    },
+  }.to_json
+
+  http = Net::HTTP.new(url.host, url.port)
+  http.use_ssl = true
+  response = http.start {|http| http.request(request) }
+  puts response.body
+end
+
+book = retrieve_book(ARGV[0])
+create_book(book)
