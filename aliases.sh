@@ -43,6 +43,7 @@ alias hg='history 0 | grep'
 # Apps
 # --------------------------------------------------------------------
 alias mine='open -na "RubyMine.app" --args'
+alias idea='open -na "IntelliJ IDEA Community Edition.app" --args'
 
 # --------------------------------------------------------------------
 # Ruby
