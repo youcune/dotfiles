@@ -73,12 +73,17 @@ alias dka='docker kill $(docker ps -q)'
 # --------------------------------------------------------------------
 alias ga='git add'
 alias gb='git branch'
+alias gbg='git branch | grep -i'
 alias gci='git commit'
 alias gcl='git clone'
 alias gco='git checkout'
 alias gcom='git checkout `gdb`'
+# git checkout by branch
+gcobb() {
+  git checkout `gbg "$1" | head -n 1 | sed "s@^ @@"`
+}
 alias gd='git diff'
-# default branch
+# git default branch
 alias gdb='git symbolic-ref refs/remotes/origin/HEAD | sed "s@^refs/remotes/origin/@@"'
 alias gdc='git diff --cached'
 alias gf='git fetch'
