@@ -103,6 +103,8 @@ alias gs='git status'
 alias gsl='git stash list'
 alias gsp='git stash pop'
 alias gss='git stash save'
+# cd git root
+alias cdgr='cd `git rev-parse --show-toplevel`'
 
 # --------------------------------------------------------------------
 # Ansible
