@@ -1,0 +1,228 @@
+#!/usr/bin/env ruby
+# --------------------------------------------------------------------
+# sortmv
+# カレントディレクトリ内のファイルのファイル名に 01_ 02_ ... のような連番を付与する
+# 数字の桁数はファイル数に応じて自動調整される
+# 
+# USAGE:
+# sortmv init
+#     カレントディレクトリ内のファイルに連番を付与する
+# sortmv add <file> [position]
+#     指定したファイルを連番付きリストに追加する（オプションで位置指定も可能）
+# sortmv move <file or position> <position>
+#     指定したファイルを指定した位置に移動する
+# sortmv unsort
+#     カレントディレクトリ内のファイルの連番を削除する
+# --------------------------------------------------------------------
+
+require 'fileutils'
+
+class SortMv
+  def initialize
+    @current_dir = Dir.pwd
+  end
+
+  def run(args)
+    command = args[0]
+    
+    case command
+    when 'init'
+      init_sort
+    when 'add'
+      if args.length < 2
+        puts "Usage: sortmv add <file> [position]"
+        exit 1
+      end
+      position = args[2] ? args[2].to_i : nil
+      add_file(args[1], position)
+    when 'move'
+      if args.length < 3
+        puts "Usage: sortmv move <file> <position>"
+        exit 1
+      end
+      move_file(args[1], args[2].to_i)
+    when 'unsort'
+      unsort_files
+    else
+      show_usage
+    end
+  end
+
+  private
+
+  def init_sort
+    files = get_sortable_files
+    return if files.empty?
+    
+    digits = files.length.to_s.length
+    
+    files.each_with_index do |file, index|
+      number = sprintf("%0#{digits}d", index + 1)
+      new_name = "#{number}_#{file}"
+      
+      if File.exist?(new_name)
+        puts "Warning: #{new_name} already exists, skipping #{file}"
+        next
+      end
+      
+      File.rename(file, new_name)
+      puts "#{file} -> #{new_name}"
+    end
+  end
+
+  def add_file(filename, position = nil)
+    # Check if file exists
+    unless File.exist?(filename)
+      puts "Error: File '#{filename}' not found"
+      return
+    end
+    
+    # Check if file already has a number prefix
+    if filename.match(/^\d+_/)
+      puts "File '#{filename}' already has a number prefix"
+      return
+    end
+    
+    files = get_numbered_files
+    
+    # If position is not specified, add to the end
+    if position.nil?
+      position = files.length + 1
+    else
+      # Validate position
+      if position < 1 || position > files.length + 1
+        puts "Position must be between 1 and #{files.length + 1}"
+        return
+      end
+    end
+    
+    # Insert the new file at the specified position
+    files.insert(position - 1, filename)
+    
+    # Renumber all files including the new one
+    renumber_files(files)
+    
+    puts "Added '#{filename}' at position #{position}"
+  end
+
+  def move_file(filename_or_position, position)
+    files = get_numbered_files
+    
+    if files.empty?
+      puts "No numbered files found. Run 'sortmv init' first."
+      return
+    end
+    
+    # Check if first argument is a position number
+    if filename_or_position.match(/^\d+$/)
+      current_position = filename_or_position.to_i
+      if current_position < 1 || current_position > files.length
+        puts "Current position must be between 1 and #{files.length}"
+        return
+      end
+      target_file = files[current_position - 1]  # Convert to 0-based index
+    else
+      # Find the file by name (original name or full numbered name)
+      target_file = files.find { |f| extract_original_name(f) == filename_or_position || f == filename_or_position }
+      
+      unless target_file
+        puts "File '#{filename_or_position}' not found"
+        return
+      end
+    end
+    
+    if position < 1 || position > files.length
+      puts "Target position must be between 1 and #{files.length}"
+      return
+    end
+    
+    # Remove target file from current position
+    files.delete(target_file)
+    
+    # Insert at new position (convert to 0-based index)
+    files.insert(position - 1, target_file)
+    
+    # Renumber all files
+    renumber_files(files)
+  end
+
+  def unsort_files
+    files = get_numbered_files
+    
+    files.each do |file|
+      original_name = extract_original_name(file)
+      
+      if File.exist?(original_name)
+        puts "Warning: #{original_name} already exists, skipping #{file}"
+        next
+      end
+      
+      File.rename(file, original_name)
+      puts "#{file} -> #{original_name}"
+    end
+  end
+
+  def get_sortable_files
+    Dir.entries(@current_dir)
+       .select { |f| File.file?(f) && !f.start_with?('.') && !f.match(/^\d+_/) }
+       .sort
+  end
+
+  def get_numbered_files
+    Dir.entries(@current_dir)
+       .select { |f| File.file?(f) && f.match(/^\d+_/) }
+       .sort
+  end
+
+  def extract_original_name(filename)
+    filename.sub(/^\d+_/, '')
+  end
+
+  def renumber_files(files)
+    digits = files.length.to_s.length
+    temp_files = []
+    
+    # First pass: rename to temporary names to avoid conflicts
+    files.each_with_index do |file, index|
+      temp_name = "temp_#{index}_#{file}"
+      File.rename(file, temp_name)
+      temp_files << temp_name
+    end
+    
+    # Second pass: rename to final numbered names
+    temp_files.each_with_index do |temp_file, index|
+      original_name = extract_original_name(temp_file.sub(/^temp_\d+_/, ''))
+      number = sprintf("%0#{digits}d", index + 1)
+      final_name = "#{number}_#{original_name}"
+      
+      File.rename(temp_file, final_name)
+      puts "Moved to position #{index + 1}: #{final_name}"
+    end
+  end
+
+  def show_usage
+    puts <<~USAGE
+      sortmv - File numbering and sorting utility
+      
+      USAGE:
+        sortmv init                         Add sequential numbers to files
+        sortmv add <file> [position]        Add file to numbered list (at end or specified position)
+        sortmv move <file|position> <position>  Move file to specified position
+        sortmv unsort                       Remove numbers from files
+      
+      EXAMPLES:
+        sortmv init                         # Number all files: 01_file.txt, 02_image.jpg, etc.
+        sortmv add newfile.txt              # Add newfile.txt at the end
+        sortmv add newfile.txt 2            # Add newfile.txt at position 2
+        sortmv move file.txt 3              # Move file.txt to position 3
+        sortmv move 5 1                     # Move file at position 5 to position 1
+        sortmv move 02_image.jpg 4          # Move 02_image.jpg to position 4
+        sortmv unsort                       # Remove all numbers: file.txt, image.jpg, etc.
+    USAGE
+  end
+end
+
+if __FILE__ == $0
+  sorter = SortMv.new
+  sorter.run(ARGV)
+end
