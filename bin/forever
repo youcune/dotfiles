@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -u
+
+cmd=("$@")
+
+if [ ${#cmd[@]} -eq 0 ]; then
+  echo "usage: $0 command [args...]" >&2
+  exit 1
+fi
+
+while true; do
+  echo "[$(date '+%F %T')] start: ${cmd[*]}" >&2
+  "${cmd[@]}"
+  status=$?
+  echo "[$(date '+%F %T')] exited with status ${status}, restarting..." >&2
+  sleep 1
+done
