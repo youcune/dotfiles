@@ -109,8 +109,9 @@ alias cdgr='cd `git rev-parse --show-toplevel`'
 # --------------------------------------------------------------------
 # Ansible
 # --------------------------------------------------------------------
-alias ap='ansible-playbook'
 alias ad='ansible-doc'
+alias ap='ansible-playbook'
+alias av='ansible-vault'
 
 # --------------------------------------------------------------------
 # CLI Tools
