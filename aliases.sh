@@ -43,7 +43,7 @@ alias hg='history 0 | grep'
 # Apps
 # --------------------------------------------------------------------
 alias mine='open -na "RubyMine.app" --args'
-alias idea='open -na "IntelliJ IDEA Ultimate.app" --args'
+alias idea='open -na "IntelliJ IDEA.app" --args'
 
 # --------------------------------------------------------------------
 # Ruby
@@ -105,6 +105,7 @@ alias gsp='git stash pop'
 alias gss='git stash save'
 # cd git root
 alias cdgr='cd `git rev-parse --show-toplevel`'
+alias pr='gh pr view --web'
 
 # --------------------------------------------------------------------
 # Ansible
